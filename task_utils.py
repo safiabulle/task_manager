@@ -33,11 +33,18 @@ def add_task(title, description, due_date):
 
 
 def mark_task_as_complete(index, tasks=tasks):
-    if len(tasks) == 0 or index < 0 or index >= len(tasks):
+    try:
+       
+        adjusted_index = int(index) - 1
+    except ValueError:
+        print("Invalid task index.")
+        return
+    
+    if len(tasks) == 0 or adjusted_index < 0 or adjusted_index >= len(tasks):
         print("Invalid task index.")
         return
 
-    tasks[index]["completed"] = True
+    tasks[adjusted_index]["completed"] = True
     print("Task marked as complete!")
 
 
@@ -48,8 +55,10 @@ def view_pending_tasks(tasks=tasks):
         print("No pending tasks.")
         return
 
-    for i, task in enumerate(pending):
-        print(f"{i}. {task['title']} - {task['description']} ({task['due_date']})")
+   
+    for i, task in enumerate(tasks):
+        if not task["completed"]:
+            print(f"{i + 1}. {task['title']} - {task['description']} ({task['due_date']})")
 
 
 def calculate_progress(tasks=tasks):

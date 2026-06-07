@@ -23,17 +23,16 @@ def main():
             add_task(title, description, due_date)
 
         elif choice == "2":
-            try:
-                index = int(input("Enter task index: "))
-                mark_task_as_complete(index)
-            except ValueError:
-                print("Invalid input.")
+            index = input("Enter task index: ")
+            
+            mark_task_as_complete(index)
 
         elif choice == "3":
             view_pending_tasks()
 
         elif choice == "4":
-            print(calculate_progress())
+            progress = calculate_progress()
+            print(f"Progress: {progress:.1f}%")
 
         elif choice == "5":
             print("Exiting the program...")
