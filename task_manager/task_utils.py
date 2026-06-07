@@ -7,24 +7,24 @@ from .validation import (
 tasks = []
 
 def add_task(title, description, due_date):
-    valid_title, title_val = validate_task_title(title)
-    valid_desc, desc_val = validate_task_description(description)
-    valid_date, date_val = validate_due_date(due_date)
+    valid_title, t = validate_task_title(title)
+    valid_desc, d = validate_task_description(description)
+    valid_date, du = validate_due_date(due_date)
 
     if not valid_title:
-        print(title_val)
+        print(t)
         return
     if not valid_desc:
-        print(desc_val)
+        print(d)
         return
     if not valid_date:
-        print(date_val)
+        print(du)
         return
 
     task = {
-        "title": title_val,
-        "description": desc_val,
-        "due_date": date_val,
+        "title": t,
+        "description": d,
+        "due_date": du,
         "completed": False
     }
 
@@ -33,7 +33,7 @@ def add_task(title, description, due_date):
 
 
 def mark_task_as_complete(index, tasks=tasks):
-    if index < 0 or index >= len(tasks):
+    if len(tasks) == 0 or index < 0 or index >= len(tasks):
         print("Invalid task index.")
         return
 
@@ -57,6 +57,4 @@ def calculate_progress(tasks=tasks):
         return 0.0
 
     completed = len([t for t in tasks if t["completed"]])
-    progress = (completed / len(tasks)) * 100
-
-    return progress
+    return (completed / len(tasks)) * 100
