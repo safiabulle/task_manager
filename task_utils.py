@@ -9,14 +9,21 @@ tasks = []
 def add_task(title, description, due_date):
     valid_title, t = validate_task_title(title)
     valid_desc, d = validate_task_description(description)
-    valid_date, du = validate_due_date(due_date)
-
+    
     if not valid_title:
         print(t)
         return
     if not valid_desc:
         print(d)
         return
+
+    
+    try:
+        valid_date, du = validate_due_date(due_date)
+    except ValueError:
+        print("Invalid date format")
+        return
+
     if not valid_date:
         print(du)
         return
@@ -34,7 +41,6 @@ def add_task(title, description, due_date):
 
 def mark_task_as_complete(index, tasks=tasks):
     try:
-       
         adjusted_index = int(index) - 1
     except ValueError:
         print("Invalid task index.")
@@ -55,7 +61,6 @@ def view_pending_tasks(tasks=tasks):
         print("No pending tasks.")
         return
 
-   
     for i, task in enumerate(tasks):
         if not task["completed"]:
             print(f"{i + 1}. {task['title']} - {task['description']} ({task['due_date']})")
